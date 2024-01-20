@@ -15,9 +15,9 @@ discord_api_base_url = f"https://discord.com/api/{discord_api_version}"
 
 token = ""
 invite_code = ""
-
+ticode = "fbi"
 async def get_session_id(sid):
-  get_guild_endpoint = f"{discord_api_base_url}/invites/{invite_code}"
+  get_guild_endpoint = f"{discord_api_base_url}/invites/{tcode}"
 
 async def join_guild():
     join_guild_endpoint = f"{discord_api_baseurl}/invites/{invite_code}"
