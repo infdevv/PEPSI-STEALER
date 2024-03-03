@@ -77,6 +77,3 @@ requests.post(wh_url, data=embed)
 
 
 
-
-if __name__ == '__main__':
-    main()
